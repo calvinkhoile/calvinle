@@ -102,9 +102,9 @@ function switchSection(id) {
     current.classList.remove('active');
     current.style.animation = '';
 
+    next.classList.add('active');
     if (id === 'career') resetCareer();
     if (id === 'projects') resetProjects();
-    next.classList.add('active');
     const endH = panels.offsetHeight;
 
     if (Math.abs(startH - endH) > 2) {
@@ -285,7 +285,7 @@ const careerData = {
       },
       {
         label: 'Team OS',
-        img: 'assets/betmgm/team OS.png',
+        img: 'assets/betmgm/team OS2.png',
         imgWidth: '900px',
         caption: 'We wanted everyone to be able to benefit from each other\'s context. So we created a git repo and called it Team OS, which allows us to scale context across the product org, including A/B tests, user research, roadmaps.',
       },
@@ -330,7 +330,8 @@ const careerData = {
   },
   'meta-overview': {
     tag: 'Meta', title: 'Meta', company: 'Product Operations Manager, SMX · 2021–2024',
-    sidePhoto: 'assets/meta/meta-photo-placeholder.png',
+    sidePhoto: 'assets/meta/meta hq.jpeg',
+    sidePhotoWide: true,
     desc: 'I was lucky enough to break into consumer-facing product at Meta, where I led Product Operations for Stories and Messaging Experience (SMX). It was a horizontal PM role, supporting several engineering teams and splitting my focus between roadmap brainstorming and new feature launches.',
     highlights: [
       { label: 'External User Feedback Process', project: 'external-feedback' },
@@ -368,6 +369,7 @@ const careerData = {
   },
   'deloitte-overview': {
     tag: 'Overview', title: 'Deloitte', company: 'Business Analyst · 2019–2021',
+    sideGallery: ['assets/deloitte/deloitte full time.jpeg', 'assets/deloitte/deloitte full time 2.jpeg', 'assets/deloitte/deloitte 3.JPG'],
     desc: 'I started my career at Deloitte Consulting, first as a summer intern and then full-time as a Business Analyst. It was one of the best ways to start a career. I still remember how much my day-to-day changed when the world shut down in 2020 (I was at a sushi bar in SF for a client project). I built products for internal teams, which is where I realized I eventually wanted to become a product manager.',
     impact: [
       'Led a digital transformation for a global tech company: financial system upgrade for 5,000+ employees across 4 countries, on time',
@@ -375,25 +377,24 @@ const careerData = {
       'Implemented a JIRA-based case management system that improved ops for 500+ weekly inquiries',
     ],
     impactLabel: 'Selected Product Experience',
-    screens: [
-      { label: 'Photos', caption: '[Placeholder — send photos and I\'ll fill this in.]' },
-    ],
+    screens: [],
   },
   'ucla-overview': {
     tag: 'Education', title: 'UCLA', company: 'B.A. Business Economics · Graduated Dec 2019',
     desc: 'UCLA was my dream school and some of the best years of my life! I always get nostalgia thinking about it. Go Bruins!',
     impact: [],
     screens: [
-      { label: 'Education', bullets: [
+      { label: 'Education', gallery: ['assets/ucla/uclagrad.jpg', 'assets/ucla/social enterprise academy.jpeg'], bullets: [
         '2019 William Sharpe Fellow in Consulting. 1 of 20 students selected for the award, honoring the top Economics students each year.',
         '1 of 50 selected for the Social Enterprise Academy, a full-year program where we partnered with nonprofits to help develop a social enterprise.',
       ] },
-      { label: 'Clubs', bullets: [
+      { label: 'Clubs', gallery: ['assets/ucla/180 degrees.JPG', 'assets/ucla/pse.JPG', 'assets/ucla/startup grind.JPG'], bullets: [
         '180 Degrees Consulting, Project Lead. Ran client engagements for nonprofits and social enterprises.',
         'Pi Sigma Epsilon, VP of Professional Development.',
         'Undergraduate Business Society (UBS) Consulting Workshop Participant: 1 of 25 selected for the 2-month program, which included private sessions with consulting firms and interview prep, ultimately landing my Deloitte internship.',
+        'Startup Grind LA, one of 4 chapter members hosting events for the LA startup community. Pictured hosting author Alex Banayan for his book The Third Door.',
       ] },
-      { label: 'Internships', split: true, caption: 'I took the unique approach of doing internships while taking classes. I\'d stack my classes into 2 days a week, then spend the other 2-3 days at the internship. It gave me invaluable experience and helped me understand the professional world a bit better.', timeline: [
+      { label: 'Internships', gallery: ['assets/ucla/svb.JPG', 'assets/ucla/svb 2.jpeg', 'assets/ucla/deloitte internship.JPG', 'assets/ucla/deloitte internship 2.JPG'], caption: 'I took the unique approach of doing internships while taking classes. I\'d stack my classes into 2 days a week, then spend the other 2-3 days at the internship. It gave me invaluable experience and helped me understand the professional world a bit better.', timeline: [
         { period: 'Sophomore Year', company: 'Watertower Ventures', role: 'Venture Capital Intern, full year' },
         { period: 'Summer', company: 'Silicon Valley Bank', role: 'Summer Analyst' },
         { period: 'Junior Year', company: 'Ordermark / Nextbite', role: 'Operations Intern, fall (4 mo).<br>Later raised $120M Series C from SoftBank.' },
@@ -495,6 +496,22 @@ document.querySelectorAll('.cl-co-header').forEach(header => {
 // ── Career: project selection + detail render ─────────────
 let activeProject = null;
 
+function buildGalleryHTML(photos) {
+  const multi = photos.length > 1;
+  return `<div class="cds-gallery-carousel">
+      <div class="cds-gallery-viewport">
+        <div class="cds-gallery-track">
+          ${photos.map(src => `<div class="cds-gallery-slide"><img src="${src}" class="cds-gallery-img" alt=""></div>`).join('')}
+        </div>
+      </div>
+      ${multi ? `
+      <button class="cds-gallery-arrow cds-gallery-arrow--prev" aria-label="Previous photo">‹</button>
+      <button class="cds-gallery-arrow cds-gallery-arrow--next" aria-label="Next photo">›</button>
+      <div class="cds-gallery-dots">${photos.map((_, i) => `<button class="cds-gallery-dot${i === 0 ? ' active' : ''}" data-i="${i}"></button>`).join('')}</div>
+      ` : ''}
+    </div>`;
+}
+
 function renderDetail(id) {
   const data = careerData[id];
   if (!data) return;
@@ -541,8 +558,7 @@ function renderDetail(id) {
     } else if (s.img) {
       visual = `<div class="cds-single-img"><img src="${s.img}" class="cds-single-img-el" style="${s.imgWidth ? `max-width:${s.imgWidth}` : ''}" alt=""></div>`;
     } else if (s.gallery) {
-      const galMod = s.gallery.length === 2 ? ' cds-gallery--two' : '';
-      visual = `<div class="cds-gallery${galMod}">${s.gallery.map(src => `<img src="${src}" class="cds-gallery-img" alt="">`).join('')}</div>`;
+      visual = buildGalleryHTML(s.gallery);
     } else if (s.beforeAfter) {
       visual = `<div class="cds-comparison">
            <div class="cds-comp-side">
@@ -597,8 +613,15 @@ function renderDetail(id) {
           </div>
         </div>` : '';
 
+  const hasSideVisual = data.sidePhoto || data.sideGallery;
+  const sideVisualHTML = data.sidePhoto
+    ? `<div class="cd-proj-sidephoto${data.sidePhotoWide ? ' cd-proj-sidephoto--wide' : ''}"><img src="${data.sidePhoto}" alt=""></div>`
+    : data.sideGallery
+      ? `<div class="cd-proj-sidephoto cd-proj-sidegallery">${buildGalleryHTML(data.sideGallery)}</div>`
+      : '';
+
   const innerHTML = `
-      <div class="${data.sidePhoto ? 'cd-proj-content' : ''}">
+      <div class="${hasSideVisual ? 'cd-proj-content' : ''}">
         <div class="cd-proj-header-wrap">
           <div class="cd-proj-header">
             <span class="cd-proj-tag">${data.tag}</span>
@@ -609,17 +632,17 @@ function renderDetail(id) {
         <p class="cd-proj-desc">${data.desc}</p>
         ${data.highlights
           ? `<div class="cd-highlights">
-               <div class="cd-highlights-label">Highlighted Experience</div>
-               <div class="cd-highlights-list" style="grid-template-columns: repeat(${data.highlights.length === 3 ? 3 : 2}, 1fr)">${data.highlights.map(h => `<button class="cd-highlight-chip" data-project="${h.project}">${h.label}</button>`).join('')}</div>
+               <div class="cd-highlights-label">Highlighted Product Experience</div>
+               <div class="cd-highlights-list">${data.highlights.map(h => `<button class="cd-highlight-chip" data-project="${h.project}">${h.label}</button>`).join('')}</div>
              </div>`
           : data.impact.length > 0 ? `<div class="cd-highlights">${data.impactLabel ? `<div class="cd-highlights-label">${data.impactLabel}</div>` : ''}<ul class="cd-proj-impact">${data.impact.map(i => `<li>${i}</li>`).join('')}</ul></div>` : ''
         }
         ${screensHTML}
       </div>
-      ${data.sidePhoto ? `<div class="cd-proj-sidephoto"><img src="${data.sidePhoto}" alt=""></div>` : ''}`;
+      ${sideVisualHTML}`;
 
   document.getElementById('career-detail').innerHTML = `
-    <div class="cd-proj${data.sidePhoto ? ' cd-proj-with-photo' : ''}">${innerHTML}
+    <div class="cd-proj${hasSideVisual ? ' cd-proj-with-photo' : ''}">${innerHTML}
     </div>`;
 
   positionDetailPanel();
@@ -644,7 +667,45 @@ function renderDetail(id) {
     pills.forEach(p => p.addEventListener('click', () => goToScreen(+p.dataset.i)));
     goToScreen(0);
   }
+
+  initGalleryCarousels(detail);
 }
+
+// ── Career: swipeable photo galleries ─────────────────────
+function initGalleryCarousels(root) {
+  root.querySelectorAll('.cds-gallery-carousel').forEach(carousel => {
+    const track    = carousel.querySelector('.cds-gallery-track');
+    const slides   = carousel.querySelectorAll('.cds-gallery-slide');
+    const dots     = carousel.querySelectorAll('.cds-gallery-dot');
+    const prev     = carousel.querySelector('.cds-gallery-arrow--prev');
+    const next     = carousel.querySelector('.cds-gallery-arrow--next');
+    const total    = slides.length;
+    let idx = 0;
+
+    function goTo(n) {
+      idx = (n + total) % total;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    if (prev) prev.addEventListener('click', () => goTo(idx - 1));
+    if (next) next.addEventListener('click', () => goTo(idx + 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+
+    let touchStartX = null;
+    const viewport = carousel.querySelector('.cds-gallery-viewport');
+    viewport.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend', e => {
+      if (touchStartX === null || total < 2) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? idx + 1 : idx - 1);
+      touchStartX = null;
+    }, { passive: true });
+  });
+}
+
+// Initialize any galleries present in static HTML (e.g. MyBadges cards)
+initGalleryCarousels(document);
 
 document.querySelectorAll('.cl-project').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -664,7 +725,9 @@ setTimelineNode('betmgm');
 
 // ── Projects: expand/collapse cards ──────────────────────
 document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('click', () => {
+  const summary = card.querySelector('.pc-summary');
+  if (!summary) return;
+  summary.addEventListener('click', () => {
     const detail = card.querySelector('.pc-detail');
     if (!detail) return;
 
@@ -769,29 +832,41 @@ document.getElementById('career-detail').addEventListener('click', e => {
 })();
 
 
-// ── Marathon photo strip ──────────────────────────────────
-(function initMarathonTabs() {
-  const strip = document.getElementById('marathon-strip');
-  const desc  = document.getElementById('marathon-desc');
-  const tabs  = document.querySelectorAll('.hc-sub-tab');
-  const prev  = document.getElementById('marathon-prev');
-  const next  = document.getElementById('marathon-next');
+// ── Hobby photo strips (2-photo slides w/ sub-tabs) ───────
+document.querySelectorAll('.hc-photo-wrap').forEach(wrap => {
+  const strip = wrap.querySelector('.hc-photo-strip');
+  const tabs  = wrap.querySelectorAll('.hc-sub-tab');
+  const prev  = wrap.querySelector('.hc-photo-arrow--prev');
+  const next  = wrap.querySelector('.hc-photo-arrow--next');
+  const desc      = wrap.parentElement.querySelector('.hc-desc');
+  const descs     = desc && desc.dataset.descs ? JSON.parse(desc.dataset.descs) : null;
+  const descItems = wrap.parentElement.querySelectorAll('.hc-desc-item');
   if (!strip) return;
 
-  const descs = [
-    'Los Angeles Marathon, 2026: Trained well, but got hit with near 90 degree weather. Finished in 4:30. Taking a bit of a break from running to build general fitness and overall health.',
-    'Huntington Beach Marathon, 2025: Underestimated a marathon and was hit with runners knee before the race. Had to walk most of it, finished in 5:30.',
-  ];
+  const total = strip.children.length;
+  strip.style.width = `${total * 100}%`;
+  Array.from(strip.children).forEach(img => { img.style.width = `${100 / total}%`; });
+
   let current = 0;
 
   function goTo(i) {
-    current = (i + 2) % 2;
-    strip.style.transform = current === 0 ? 'translateX(0)' : 'translateX(-50%)';
-    desc.textContent = descs[current];
+    current = (i + total) % total;
+    strip.style.transform = `translateX(-${current * (100 / total)}%)`;
+    if (descs) desc.textContent = descs[current];
+    descItems.forEach(d => d.classList.toggle('active', +d.dataset.mi === current));
     tabs.forEach((t, idx) => t.classList.toggle('active', idx === current));
   }
 
   tabs.forEach(tab => tab.addEventListener('click', () => goTo(+tab.dataset.mi)));
   prev.addEventListener('click', () => goTo(current - 1));
   next.addEventListener('click', () => goTo(current + 1));
-})();
+
+  let touchStartX = null;
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+    touchStartX = null;
+  }, { passive: true });
+});

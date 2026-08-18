@@ -52,12 +52,13 @@
 
     <div class="section-summary" data-target="career">
       <div class="ss-label">MyCareer</div>
-      <div class="ss-title">Work History</div>
+      <div class="ss-title">Professional Experience</div>
       <div class="ss-desc">3 companies · 6+ years</div>
       <div class="ss-logos">
         <img src="assets/logos/betmgm.png" alt="BetMGM">
         <img src="assets/logos/meta.svg" alt="Meta">
         <img src="assets/logos/deloitte.png" alt="Deloitte">
+        <img src="assets/logos/UCLA-Logo-transparent.png" alt="UCLA">
       </div>
       <div class="ss-cta">Explore ›</div>
     </div>
@@ -65,10 +66,10 @@
     <div class="section-summary" data-target="projects">
       <div class="ss-label">MyBadges</div>
       <div class="ss-title">Side Builds</div>
-      <div class="ss-desc">how i'm hacking away</div>
+      <div class="ss-desc">Building to learn or learning to build?</div>
       <div class="ss-items">
+        <span class="ss-item"><i class="ph ph-target"></i> Sports Betting</span>
         <span class="ss-item"><i class="ph ph-robot"></i> Building with AI</span>
-        <span class="ss-item"><i class="ph ph-code"></i> Claude Code + Cursor</span>
         <span class="ss-item"><i class="ph ph-globe"></i> This website</span>
       </div>
       <div class="ss-cta">Explore ›</div>
@@ -79,9 +80,9 @@
       <div class="ss-title">Off the Court</div>
       <div class="ss-desc">When I'm not working...</div>
       <div class="ss-items">
-        <span class="ss-item"><i class="ph ph-target"></i> Sports Betting</span>
+        <span class="ss-item"><i class="ph ph-person-simple-run"></i> Running</span>
+        <span class="ss-item"><i class="ph ph-strategy"></i> Chess</span>
         <span class="ss-item"><i class="ph ph-basketball"></i> Basketball</span>
-        <span class="ss-item"><i class="ph ph-robot"></i> Building with AI</span>
       </div>
       <div class="ss-cta">Explore ›</div>
     </div>
@@ -227,6 +228,35 @@
       <div class="panel-subheading">Side Builds</div>
       <div class="projects-list">
 
+        <div class="project-card" data-project="sports-betting">
+          <div class="pc-summary">
+            <div class="pc-left">
+              <div class="pc-name">Sports Betting</div>
+              <div class="pc-tagline">Line shopping and market inefficiencies</div>
+            </div>
+            <div class="pc-right">
+              <span class="pc-chevron">›</span>
+            </div>
+          </div>
+          <div class="pc-detail">
+            <p class="pc-overview">Started in 2022 when sports betting went legal in New York, at first just chasing sign-up promotions. That curiosity turned into learning how to line shop and find real market inefficiencies. I still wager from time to time, though I'm limited by the standard restrictions that come with being a BetMGM employee.</p>
+            <div class="cds-gallery-carousel">
+              <div class="cds-gallery-viewport">
+                <div class="cds-gallery-track">
+                  <div class="cds-gallery-slide"><img src="assets/mybadges/IMG_0348.PNG" class="cds-gallery-img" alt="Pikkit 2023 betting record"></div>
+                  <div class="cds-gallery-slide"><img src="assets/mybadges/IMG_5463.PNG" class="cds-gallery-img" alt="Pikkit CLV bettor persona, 78.5% of bets beating closing line value"></div>
+                </div>
+              </div>
+              <button class="cds-gallery-arrow cds-gallery-arrow--prev" aria-label="Previous photo">‹</button>
+              <button class="cds-gallery-arrow cds-gallery-arrow--next" aria-label="Next photo">›</button>
+              <div class="cds-gallery-dots">
+                <button class="cds-gallery-dot active" data-i="0"></button>
+                <button class="cds-gallery-dot" data-i="1"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="project-card" data-project="ai-building">
           <div class="pc-summary">
             <div class="pc-left">
@@ -234,7 +264,6 @@
               <div class="pc-tagline">Claude Code + Cursor as a development stack</div>
             </div>
             <div class="pc-right">
-              <span class="status-pill status-active">Active</span>
               <span class="pc-chevron">›</span>
             </div>
           </div>
@@ -263,12 +292,12 @@
             <div class="hc-slide">
               <div class="hc-slide-inner">
                 <div class="hc-photo-wrap">
-                  <div class="hc-photo-strip" id="marathon-strip">
+                  <div class="hc-photo-strip">
                     <img class="hc-photo" src="assets/hobbies/marathon 2.JPG" alt="LA Marathon">
                     <img class="hc-photo" src="assets/hobbies/marathon 1.jpeg" alt="Huntington Beach">
                   </div>
-                  <button class="hc-photo-arrow hc-photo-arrow--prev" id="marathon-prev">‹</button>
-                  <button class="hc-photo-arrow hc-photo-arrow--next" id="marathon-next">›</button>
+                  <button class="hc-photo-arrow hc-photo-arrow--prev">‹</button>
+                  <button class="hc-photo-arrow hc-photo-arrow--next">›</button>
                   <div class="hc-sub-tabs">
                     <button class="hc-sub-tab active" data-mi="0">LA Marathon</button>
                     <button class="hc-sub-tab" data-mi="1">Huntington Beach</button>
@@ -277,54 +306,45 @@
                 <div class="hc-content">
                   <div class="hc-icon"><i class="ph ph-person-simple-run"></i></div>
                   <div class="hc-name">Running</div>
-                  <p class="hc-desc" id="marathon-desc">Los Angeles Marathon, 2026: Trained well, but got hit with near 90 degree weather. Finished in 4:30. Taking a bit of a break from running to build general fitness and overall health.</p>
+                  <p class="hc-desc" data-descs='["Los Angeles Marathon, 2026: Trained well, but got hit with near 90 degree weather. Finished in 4:30. Taking a bit of a break from running to build general fitness and overall health.","Huntington Beach Marathon, 2025: Underestimated a marathon and was hit with runners knee before the race. Had to walk most of it, finished in 5:30."]'>Los Angeles Marathon, 2026: Trained well, but got hit with near 90 degree weather. Finished in 4:30. Taking a bit of a break from running to build general fitness and overall health.</p>
                 </div>
               </div>
             </div>
 
             <div class="hc-slide">
               <div class="hc-slide-inner">
-                <div class="ph-box hc-ph-box"><span>Photo placeholder</span></div>
+                <img class="hc-photo hc-photo--contain" src="assets/hobbies/chess.png" alt="Chess.com rating history">
                 <div class="hc-content">
-                  <div class="hc-icon"><i class="ph ph-chess"></i></div>
+                  <div class="hc-icon"><i class="ph ph-strategy"></i></div>
                   <div class="hc-name">Chess</div>
-                  <p class="hc-desc">Picked it up seriously after watching The Queen's Gambit. Mostly rapid and blitz on Chess.com. Around 900 rated but improving. It's a game of incomplete information, which is basically PM work.</p>
-                  <div class="hc-tags">
-                    <span class="hc-tag">Chess.com</span>
-                    <span class="hc-tag">Rapid / Blitz</span>
-                    <span class="hc-tag">~900 rated</span>
-                  </div>
+                  <p class="hc-desc">I started playing when I was 12 with my childhood best friend. Still mostly casual, and rated ~1600-1700 on Chess.com (97.5th percentile), but I'd eventually like to start taking it more seriously and study and enter some tournaments.</p>
                 </div>
               </div>
             </div>
 
             <div class="hc-slide">
               <div class="hc-slide-inner">
-                <div class="ph-box hc-ph-box"><span>Photo placeholder</span></div>
-                <div class="hc-content">
-                  <div class="hc-icon"><i class="ph ph-target"></i></div>
-                  <div class="hc-name">Sports Betting</div>
-                  <p class="hc-desc">Not a casual bettor. I track line movement, shop for value, and focus on props where the market is softer. Being at BetMGM helps me understand how books think. I try to approach it like investing, not gambling.</p>
-                  <div class="hc-tags">
-                    <span class="hc-tag">Player props</span>
-                    <span class="hc-tag">Line movement</span>
-                    <span class="hc-tag">Sharp bettor</span>
+                <div class="hc-photo-wrap">
+                  <div class="hc-photo-strip">
+                    <img class="hc-photo hc-photo--contain" src="assets/hobbies/3 point record.JPG" alt="High school 3-point record">
+                    <img class="hc-photo" src="assets/hobbies/basketball 1.JPG" alt="Driving to the basket during a high school game">
+                    <img class="hc-photo hc-photo--contain" src="assets/hobbies/coaching.PNG" alt="Coaching my travel basketball team">
+                  </div>
+                  <button class="hc-photo-arrow hc-photo-arrow--prev">‹</button>
+                  <button class="hc-photo-arrow hc-photo-arrow--next">›</button>
+                  <div class="hc-sub-tabs">
+                    <button class="hc-sub-tab active" data-mi="0">Record</button>
+                    <button class="hc-sub-tab" data-mi="1">Playing</button>
+                    <button class="hc-sub-tab" data-mi="2">Coaching</button>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="hc-slide">
-              <div class="hc-slide-inner">
-                <div class="ph-box hc-ph-box"><span>Photo placeholder</span></div>
                 <div class="hc-content">
                   <div class="hc-icon"><i class="ph ph-basketball"></i></div>
                   <div class="hc-name">Basketball</div>
-                  <p class="hc-desc">Lifelong NBA fan. Grew up playing point guard and that mentality stuck. I watch a lot of film, follow advanced stats, and think about the game more analytically than most people I know. Lakers fan (don't hold it against me).</p>
-                  <div class="hc-tags">
-                    <span class="hc-tag">NBA</span>
-                    <span class="hc-tag">Point guard</span>
-                    <span class="hc-tag">Advanced stats</span>
+                  <div class="hc-desc-group">
+                    <p class="hc-desc-item active" data-mi="0">I&rsquo;ve played since I was 8, all the way through high school, where I set the HS record for most 3-pointers made in a game. I don&rsquo;t play anymore, but the love for the game, analytics, strategy, and competitiveness still carries on.</p>
+                    <p class="hc-desc-item" data-mi="1">Driving to the rim during a game my senior year at Fountain Valley High.</p>
+                    <p class="hc-desc-item" data-mi="2">In my early college days, I started and coached my own travel team, Genesis Elite, for two summers. It taught me a lot of things I expected, and plenty I didn&rsquo;t — hiring good coaches, marketing, jerseys, tournament entries, basically running a small business.</p>
                   </div>
                 </div>
               </div>
@@ -338,7 +358,6 @@
             <button class="hc-dot active" data-index="0"></button>
             <button class="hc-dot" data-index="1"></button>
             <button class="hc-dot" data-index="2"></button>
-            <button class="hc-dot" data-index="3"></button>
           </div>
           <button class="hc-next" id="hc-next" aria-label="Next">›</button>
         </div>
