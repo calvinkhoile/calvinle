@@ -447,10 +447,12 @@ function positionDetailPanel() {
     const openCo = careerList.querySelector('.cl-company.open');
     if (openCo) {
       openCo.after(detail);
+      detail.style.display = '';
     } else {
-      careerList.appendChild(detail);
+      detail.style.display = 'none';
     }
   } else {
+    detail.style.display = '';
     if (detail.parentElement !== careerLayout) {
       careerLayout.appendChild(detail);
     }
